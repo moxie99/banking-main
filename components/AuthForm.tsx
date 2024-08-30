@@ -193,7 +193,7 @@ const AuthForm = ({ type }: { type: string }) => {
                 <Button type='submit' disabled={isLoading} className='form-btn'>
                   {isLoading ? (
                     <>
-                      <Loader2 size={20} className='animate-spin' /> &nbsp;
+                      <Loader2 size={20} className='animate-bounce' /> &nbsp;
                       Loading...
                     </>
                   ) : type === 'sign-in' ? (

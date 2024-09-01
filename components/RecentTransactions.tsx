@@ -21,6 +21,9 @@ const RecentTransactions = ({
     indexOfFirstTransaction, indexOfLastTransaction
   )
 
+
+  console.log('accounts ====>>>>>>', accounts)
+
   return (
     <section className="recent-transactions">
       <header className="flex items-center justify-between">

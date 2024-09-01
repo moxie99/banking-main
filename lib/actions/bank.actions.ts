@@ -1,13 +1,6 @@
 "use server";
 
-import {
-  ACHClass,
-  CountryCode,
-  TransferAuthorizationCreateRequest,
-  TransferCreateRequest,
-  TransferNetwork,
-  TransferType,
-} from "plaid";
+import { CountryCode } from 'plaid'
 
 import { plaidClient } from "../plaid";
 import { parseStringify } from "../utils";
@@ -23,16 +16,13 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
 
     const accounts = await Promise.all(
       banks?.map(async (bank: Bank) => {
-        // get each account info from plaid
         const accountsResponse = await plaidClient.accountsGet({
           access_token: bank.accessToken,
-        });
-        const accountData = accountsResponse.data.accounts[0];
-
-        // get institution info from plaid
+        })
+        const accountData = accountsResponse.data.accounts[0]
         const institution = await getInstitution({
           institutionId: accountsResponse.data.item.institution_id!,
-        });
+        })
 
         const account = {
           id: accountData.account_id,
@@ -46,11 +36,11 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
           subtype: accountData.subtype! as string,
           appwriteItemId: bank.$id,
           sharaebleId: bank.shareableId,
-        };
+        }
 
-        return account;
+        return account
       })
-    );
+    )
 
     const totalBanks = accounts.length;
     const totalCurrentBalance = accounts.reduce((total, account) => {

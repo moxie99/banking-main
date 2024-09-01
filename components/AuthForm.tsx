@@ -31,8 +31,6 @@ const AuthForm = ({ type }: { type: string }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const formSchema = authFormSchema(type)
-
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,13 +39,10 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   })
 
-  // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true)
 
     try {
-      // Sign up with Appwrite & create plaid token
-
       if (type === 'sign-up') {
         const userData = {
           firstName: data.firstName!,
@@ -61,18 +56,14 @@ const AuthForm = ({ type }: { type: string }) => {
           email: data.email,
           password: data.password,
         }
-
         const newUser = await signUp(userData)
-
         setUser(newUser)
       }
-
       if (type === 'sign-in') {
         const response = await signIn({
           email: data.email,
           password: data.password,
         })
-
         if (response) router.push('/')
       }
     } catch (error) {

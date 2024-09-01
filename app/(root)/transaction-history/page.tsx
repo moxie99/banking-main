@@ -30,6 +30,9 @@ const indexOfFirstTransaction = indexOfLastTransaction - rowsPerPage;
 const currentTransactions = account?.transactions.slice(
   indexOfFirstTransaction, indexOfLastTransaction
 )
+
+
+console.log(account, '<<<<<<>>>>>')
   return (
     <div className="transactions">
       <div className="transactions-header">
